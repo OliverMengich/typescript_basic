@@ -93,3 +93,79 @@ const throwErr1 = (message: string): string=>{
     }
     return message;
 }
+//====================Destructuring with annotations====================
+const forecast = {
+    date: new Date(),
+    weather: 'sunny'
+}
+function logWeather({date,weather}: {date: Date,weather: string}): void {
+    console.log(date);
+    console.log(weather);
+}
+logWeather(forecast)
+//============Objects (annotation)==================
+const profile = {
+    name: 'alex',
+    age: 20,
+    coords:{
+        lat: 0,
+        lng: 15
+    },
+    setAge(age: number): void{
+        this.age = age
+    }
+}
+// const {age,name}: {age: number, name: string} = profile;
+const {
+    coords: {lat,lng}}: 
+    {coords: {lat: number, lng: number}
+} = profile;
+
+//=================Arrays in Typescript==============
+//arrays in typescript should be of a specific consistent type e.g array of strings only or
+//array of integers only
+const carMakers: string[] = ['ford', 'toyota', 'chevy','lamborgini'];
+// const carMakers = ['ford', 'toyota', 'chevy','lamborgini'];
+const carEngines: string[] = [];
+carEngines.push('V8')
+carEngines.push('V10')
+carEngines.push('V6')
+const carsByMake: string[][] = [
+    ['f150'],
+    ['corolla'],
+    ['camaro']
+];
+carsByMake.push(['Premio'])
+console.log(carsByMake);
+//flexible types
+const importantDates:( Date | string)[]= [new Date(), '2030-10-10'];
+importantDates.push('whoami');
+//==================tuples in typescript==========
+//-> tuples are array-like structure where each element represents some property of a record
+// tuples give like a fixed order of elements. when you specify string-bool-num you 
+// assign in this order
+const drink = {
+    color: 'brown',
+    carbonated: true,
+    sugar: 40
+};
+
+const pepsi: [string,boolean,number] = ['brown', true, 40];
+// when we swap the flow we tend to loose information
+pepsi[2] = 54;
+pepsi[0] = 'Leon Goretzka'
+// we can simplify this with types
+type Drink = [string,boolean, number]
+const coke: Drink = ['brown', true, 40];
+const krest: Drink = ['clear', true, 0];
+//============================interfaces==================
+//interface -> creates a new type, describing property name and value types of an object
+interface CarH{
+    name: string,
+    year: number,
+    broken: boolean
+}
+const printVehicle = (vehicle: CarH): void=>{
+    console.log('Vehicle is: '+vehicle.name + ' Year: '+vehicle.year + ' and it is: '+ (vehicle.broken? 'Broken': 'Not broken'))
+}
+printVehicle({name:'Civic',broken: true,year: 1993})
